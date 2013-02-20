@@ -14,8 +14,12 @@ class WP_Random_Headers {
 		add_filter( 'theme_mod_header_image', array( __CLASS__, 'random_headers_filter' ) );
 	}
 
-	public static function random_headers_filter() {
+	public static function random_headers_filter($default) {
 		global $_wp_default_headers;
+
+		if ( is_null( $_wp_default_headers ) ) {
+			return $default;
+		}
 
 		$header_count = count($_wp_default_headers);
 		$index = rand(0, $header_count - 1);
